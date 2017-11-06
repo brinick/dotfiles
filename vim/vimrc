@@ -1,8 +1,6 @@
 set nocompatible
 let mapleader=","
 
-"execute pathogen#infect()
-
 " ------------------------------------------------------------
 " --- init -----------------------------
 " ------------------------------------------------------------
@@ -145,6 +143,7 @@ Plug 'konfekt/fastfold'
 Plug 'tmhedberg/simpylfold'
 Plug 'hdima/python-syntax'
 Plug 'klen/python-mode'
+Plug 'rking/ag.vim'
 call plug#end()
 
 " Has to be after the vim-colorschemes plugin line
