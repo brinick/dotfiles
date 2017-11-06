@@ -1,0 +1,165 @@
+set nocompatible
+let mapleader=","
+
+"execute pathogen#infect()
+
+" ------------------------------------------------------------
+" --- init -----------------------------
+" ------------------------------------------------------------
+filetype off
+syntax on
+filetype on
+filetype plugin indent on
+
+" ------------------------------------------------------------
+" --- basic settings -----------------------------------------
+" ------------------------------------------------------------
+set relativenumber            " line numbers relative to current line
+set numberwidth=1             " using only 1 column (and 1 space) while possible"
+set title
+set wildmenu
+set wildmode=full
+set confirm                   " confirm exit buffer if not saved
+set autochdir                 " curr dir = dir of current buffer
+set hidden                    " hide buffers when not displayed
+set listchars=eol:$,tab:>-,trail:.
+" ------------------------------------------------------------
+" --- stop annoyances ----------------------------------------
+" ------------------------------------------------------------
+set noerrorbells
+set vb t_vb=
+set shortmess=atI    " stifle certain annoying interrupt prompts"
+
+" ------------------------------------------------------------
+" --- ignore these files when completing ---------------------
+" ------------------------------------------------------------
+set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=eggs/**
+set wildignore+=*.egg-info/**
+
+" ------------------------------------------------------------
+" --- moving around and editing ------------------------------
+" ------------------------------------------------------------
+set cursorline              " have a line indicate the cursor location
+set ruler                   " show the cursor position all the time
+set nostartofline           " Avoid moving cursor to BOL when jumping around
+set virtualedit=block       " Let cursor move past the last char in <C-v> mode
+set scrolloff=3             " Keep 3 context lines above and below the cursor
+set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
+set showmatch               " Briefly jump to a paren once it's balanced
+set nowrap                  " don't wrap text
+set linebreak               " don't wrap textin the middle of a word
+set autoindent              " always set autoindenting on
+set tabstop=4               " <tab> inserts 4 spaces
+set shiftwidth=4            " but an indent level is 2 spaces wide.
+set softtabstop=4           " <BS> over an autoindent deletes both spaces.
+set expandtab               " Use spaces, not tabs, for autoindent/tab key.
+set shiftround              " rounds indent to a multiple of shiftwidth
+set matchpairs+=<:>         " show matching <> (html mainly) as well
+set foldmethod=indent       " allow us to fold on indents
+set foldlevel=99            " don't fold by default
+
+nnoremap Y y$               " make Y consistent with C and D
+
+inoremap jk <esc>
+"
+" don't outdent hashes
+inoremap # #
+inoremap # X<C-H>#
+
+set backupdir=~/.vim/backup/
+set directory=~/.vim/backup/
+
+" Edit/source my vimrc file
+nnoremap <leader>e :e $MYVIMRC<CR>
+nnoremap <leader>s :so $MYVIMRC<CR>
+
+nnoremap <silent> <A-Left> :wincmd h<CR>
+nnoremap <silent> <A-Right> :wincmd l<CR>
+nnoremap <silent> <A-Up> :wincmd k<CR>
+nnoremap <silent> <A-Down> :wincmd j<CR>
+
+"Faster resizing of splits
+nnoremap <C-w>> 10<C-w>>
+nnoremap <C-w>< 10<C-w><
+
+" ------------------------------------------------------------
+" --- reading/writing ----------------------------------------
+" ------------------------------------------------------------
+set noautowrite             " Never write a file unless I request it.
+set noautowriteall          " NEVER.
+set noautoread              " Don't automatically re-read changed files.
+set ffs=unix,dos,mac        " Try recognizing dos, unix, and mac line endings.
+
+" ------------------------------------------------------------
+" ---  searching and patterns --------------------------------
+" ------------------------------------------------------------
+set ignorecase              " Default to using case insensitive searches,
+set smartcase               " unless uppercase letters are used in the regex.
+set smarttab                " Handle tabs more intelligently
+set hlsearch                " Highlight searches by default.
+set incsearch               " Incrementally search while typing a /regex"
+
+" ------------------------------------------------------------
+" --- appearance ---------------------------------------------
+" ------------------------------------------------------------
+set t_Co=256                " tell the term has 256 colors
+set background=dark
+
+if has("gui_running")
+    " Remove menu bar
+    set guioptions-=m
+
+    " Remove toolbar
+    set guioptions-=T
+endif
+
+set laststatus=2
+
+" hide matches on <leader>space
+nnoremap <leader><space> :nohlsearch<cr>
+
+" Remove trailing whitespace on <leader>S
+nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
+
+
+" Remove the | vertical split signs
+hi vertsplit guifg=bg guibg=bg
+
+" Change the unused line ~ sign color
+hi NonText guifg=gray
+
+" ------------------------------------------------------------
+" --- plugins ------------------------------------------------
+" ------------------------------------------------------------
+call plug#begin('~/.vim/plugged')
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+"Plug 'bling/vim-airline'
+Plug 'honza/vim-snippets'
+"Plug 'valloric/youcompleteme'
+Plug 'flazz/vim-colorschemes'
+Plug 'itchyny/lightline.vim'
+Plug 'konfekt/fastfold'
+Plug 'tmhedberg/simpylfold'
+Plug 'hdima/python-syntax'
+Plug 'klen/python-mode'
+call plug#end()
+
+" Has to be after the vim-colorschemes plugin line
+colorscheme wombat256
+
+
+highlight ColorColumn ctermbg=236
+call matchadd('ColorColumn', '\%81v', -1)
+
+let g:lightline = {
+   \ 'colorscheme': 'wombat',
+   \ 'component': {
+      \ 'readonly': 'RO'
+      \}
+      \}
+
+"Turn off rope mode
+let g:pymode_rope = 0
