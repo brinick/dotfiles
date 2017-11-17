@@ -120,7 +120,6 @@ nnoremap <leader><space> :nohlsearch<cr>
 " Remove trailing whitespace on <leader>S
 nnoremap <leader>S :%s/\s\+$//<cr>:let @/=''<CR>
 
-
 " Remove the | vertical split signs
 hi vertsplit guifg=bg guibg=bg
 
@@ -136,7 +135,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 "Plug 'bling/vim-airline'
 Plug 'honza/vim-snippets'
-"Plug 'valloric/youcompleteme'
+Plug 'valloric/youcompleteme'
 Plug 'flazz/vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 Plug 'konfekt/fastfold'
@@ -144,11 +143,15 @@ Plug 'tmhedberg/simpylfold'
 Plug 'hdima/python-syntax'
 Plug 'klen/python-mode'
 Plug 'rking/ag.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'davidhalter/jedi-vim'
+Plug 'w0rp/ale'      " asynchronous linter
+Plug 'qpkorr/vim-bufkill' " bd no longer kills the window split
 call plug#end()
 
 " Has to be after the vim-colorschemes plugin line
 colorscheme wombat256
-
 
 highlight ColorColumn ctermbg=236
 call matchadd('ColorColumn', '\%81v', -1)
@@ -162,3 +165,6 @@ let g:lightline = {
 
 "Turn off rope mode
 let g:pymode_rope = 0
+
+" FZF shortcut
+nnoremap <leader><leader> :FZF<cr>
